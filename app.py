@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-from base import BaseAgent
+from src.base import BaseAgent
 a=BaseAgent()
 st.title("Python Assistant using LangChain")
 if 'messages' not in st.session_state:
