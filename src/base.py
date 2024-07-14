@@ -16,7 +16,7 @@ class BaseAgent:
     def __init__(self):
         load_dotenv()
         self.chat_mssg=[]
-        self.embeddings=CohereEmbeddings(cohere_api_key=st.secrets["COHERE_API_KEY"])
+        self.embeddings=CohereEmbeddings(cohere_api_key=st.secrets["COHERE_API_KEY"],user_agent="langchain")
         self.llm=Cohere(cohere_api_key=st.secrets["COHERE_API_KEY"])
         retriever=self.init_db().as_retriever()
         self.history_aware_retriever = create_history_aware_retriever(
