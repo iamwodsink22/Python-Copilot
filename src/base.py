@@ -8,7 +8,7 @@ from langchain.chains import create_retrieval_chain
 import os
 from langchain.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever
-from prompts import qa_prompt,contextualize_q_prompt
+from src.prompts import qa_prompt,contextualize_q_prompt
 from langchain.chains.combine_documents import create_stuff_documents_chain
 class BaseAgent:
    
