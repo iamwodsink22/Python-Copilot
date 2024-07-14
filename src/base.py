@@ -3,6 +3,7 @@ from langchain_pinecone import PineconeVectorStore
 from langchain.embeddings.cohere import CohereEmbeddings
 from dotenv import load_dotenv
 from langchain.llms.cohere import Cohere
+import streamlit as st
 from langchain_core.messages import HumanMessage
 from langchain.chains import create_retrieval_chain
 import os
@@ -15,8 +16,8 @@ class BaseAgent:
     def __init__(self):
         load_dotenv()
         self.chat_mssg=[]
-        self.embeddings=CohereEmbeddings(cohere_api_key=os.environ["COHERE_API_KEY"])
-        self.llm=Cohere(cohere_api_key=os.environ["COHERE_API_KEY"])
+        self.embeddings=CohereEmbeddings(cohere_api_key=st.secrets["COHERE_API_KEY"])
+        self.llm=Cohere(cohere_api_key=st.secrets["COHERE_API_KEY"])
         retriever=self.init_db().as_retriever()
         self.history_aware_retriever = create_history_aware_retriever(
     self.llm, retriever, contextualize_q_prompt)
@@ -27,7 +28,7 @@ class BaseAgent:
     
     def init_db(self):
         
-        pc=Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+        pc=Pinecone(api_key=st.secrets["PINECONE_API_KEY"])
         vector_store=PineconeVectorStore(index_name='python',embedding=self.embeddings)
         return vector_store
         
